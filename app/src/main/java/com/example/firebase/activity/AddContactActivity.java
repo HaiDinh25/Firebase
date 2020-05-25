@@ -45,8 +45,11 @@ public class AddContactActivity extends AppCompatActivity implements View.OnClic
 
     private void addContacts () {
         if (checkNull()) {
+            //Lấy đối tượng FirebaseDatabase
             FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+            //Kết nối tới node có tên là contacts
             DatabaseReference databaseReference = firebaseDatabase.getReference("contacts");
+            
             String id = edtContactId.getText().toString();
             String name = edtName.getText().toString();
             String email = edtEmail.getText().toString();
