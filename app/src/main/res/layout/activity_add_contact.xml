@@ -4,13 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="10dp"
+    android:padding="@dimen/dimen_10"
     tools:context=".activity.AddContactActivity">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:padding="@dimen/dimen_10"
         android:textStyle="bold"
         android:text="Nhập contract id:"/>
 
@@ -18,7 +18,7 @@
         android:id="@+id/edt_contactId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:padding="@dimen/dimen_10"
         android:maxLines="1"
         android:inputType="text"
         android:background="@drawable/bg_edt"
@@ -28,7 +28,7 @@
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:padding="@dimen/dimen_10"
         android:textStyle="bold"
         android:text="Nhập tên KH:"/>
 
@@ -36,17 +36,17 @@
         android:id="@+id/edt_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:padding="@dimen/dimen_10"
         android:maxLines="1"
         android:inputType="text"
         android:background="@drawable/bg_edt"
         android:hint="Tên khách hàng"/>
 
     <TextView
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/dimen_10"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:padding="@dimen/dimen_10"
         android:textStyle="bold"
         android:text="Nhập email:"/>
 
@@ -54,17 +54,17 @@
         android:id="@+id/edt_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:padding="@dimen/dimen_10"
         android:maxLines="1"
         android:inputType="text"
         android:background="@drawable/bg_edt"
         android:hint="Nhập email"/>
 
     <TextView
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/dimen_10"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:padding="@dimen/dimen_10"
         android:textStyle="bold"
         android:text="Nhập số điện thoại:"/>
 
@@ -72,23 +72,23 @@
         android:id="@+id/edt_phoneNumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:padding="@dimen/dimen_10"
         android:maxLines="1"
         android:inputType="text"
         android:background="@drawable/bg_edt"
         android:hint="Nhập số điện thoại"/>
 
     <Button
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/dimen_20"
         android:id="@+id/btn_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Thêm thông tin"
         android:layout_gravity="center"
         android:background="@drawable/bg_button"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:paddingRight="30dp"
-        android:paddingLeft="30dp"/>
+        android:paddingTop="@dimen/dimen_10"
+        android:paddingBottom="@dimen/dimen_10"
+        android:paddingRight="@dimen/dimen_30"
+        android:paddingLeft="@dimen/dimen_30"/>
 
 </LinearLayout>
