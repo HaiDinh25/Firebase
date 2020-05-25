@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,9 +18,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
-    EditText edtUser;
-    EditText edtPass;
-    Button btnLogin;
+    private EditText edtUser;
+    private EditText edtPass;
+    private Button btnLogin;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +34,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         edtUser = findViewById(R.id.edt_user);
         edtPass = findViewById(R.id.edt_pass);
         btnLogin = findViewById(R.id.btn_login);
+        progressBar = findViewById(R.id.progressBar);
 
+        progressBar.setVisibility(View.GONE);
         btnLogin.setOnClickListener(this);
     }
 
@@ -53,6 +57,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     private void loginEvent() {
         if (checkNull()) {
+            progressBar.setVisibility(View.VISIBLE);
             Utils.databaseReference(Const.UserData).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -62,9 +67,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                         UserDataModel account = data.getValue(UserDataModel.class);
                         if (account != null) {
                             if (user.equals(account.getUser()) && pass.equals(account.getPass())) {
+                                progressBar.setVisibility(View.GONE);
                                 gotoActivity(MainActivity.class);
                                 finish();
                             } else {
+                                progressBar.setVisibility(View.GONE);
                                 Toast.makeText(getBaseContext(), "Thông tin chưa chính xác.", Toast.LENGTH_SHORT).show();
                             }
                         }
