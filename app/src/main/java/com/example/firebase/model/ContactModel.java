@@ -2,9 +2,9 @@ package com.example.firebase.model;
 
 public class ContactModel {
     private String contactId;
-    private String contactName;
-    private String contactEmail;
-    private String contactPhone;
+    private String name;
+    private String email;
+    private String phone;
 
     public String getContactId() {
         return contactId;
@@ -14,27 +14,27 @@ public class ContactModel {
         this.contactId = contactId;
     }
 
-    public String getContactName() {
-        return contactName;
+    public String getName() {
+        return name;
     }
 
-    public void setContactName(String contactName) {
-        this.contactName = contactName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getContactEmail() {
-        return contactEmail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setContactEmail(String contactEmail) {
-        this.contactEmail = contactEmail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getContactPhone() {
-        return contactPhone;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setContactPhone(String contactPhone) {
-        this.contactPhone = contactPhone;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

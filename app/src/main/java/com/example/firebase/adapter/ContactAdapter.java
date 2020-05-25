@@ -38,9 +38,9 @@ public class ContactAdapter extends ArrayAdapter<ContactModel> {
 
         ContactModel contact = getItem(position);
         tvContactId.setText(contact.getContactId());
-        tvName.setText(contact.getContactName());
-        tvEmail.setText(contact.getContactEmail());
-        tvPhone.setText(contact.getContactPhone());
+        tvName.setText(contact.getName());
+        tvEmail.setText(contact.getEmail());
+        tvPhone.setText(contact.getPhone());
 
         return view;
     }

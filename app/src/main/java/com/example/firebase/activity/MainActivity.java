@@ -12,6 +12,7 @@ import android.widget.ListView;
 import com.example.firebase.R;
 import com.example.firebase.adapter.ContactAdapter;
 import com.example.firebase.model.ContactModel;
+import com.example.firebase.utils.Const;
 import com.example.firebase.utils.Utils;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -35,7 +36,7 @@ public class MainActivity extends BaseActivity {
         listViewOnClick();
 
         //Truy xuất và lắng nghe sự thay đổi dữ liệu
-        Utils.databaseReferenceContact().addValueEventListener(new ValueEventListener() {
+        Utils.databaseReference(Const.Contact).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 adapter.clear();
@@ -45,9 +46,9 @@ public class MainActivity extends BaseActivity {
                     ContactModel contact = data.getValue(ContactModel.class);
                     if (contact != null) {
                         contact.setContactId(data.getKey());
-                        contact.setContactName(data.child("name").getValue().toString());
-                        contact.setContactEmail(data.child("email").getValue().toString());
-                        contact.setContactPhone(data.child("phone").getValue().toString());
+                        contact.setEmail((String) data.child("email").getValue());
+                        contact.setName((String) data.child("name").getValue());
+                        contact.setPhone((String) data.child("phone").getValue());
                         adapter.add(contact);
                     }
                 }

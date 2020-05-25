@@ -7,6 +7,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.firebase.R;
+import com.example.firebase.utils.Const;
 import com.example.firebase.utils.Utils;
 
 public class AddContactActivity extends BaseActivity implements View.OnClickListener {
@@ -47,9 +48,9 @@ public class AddContactActivity extends BaseActivity implements View.OnClickList
             String email = edtEmail.getText().toString();
             String phone = edtPhone.getText().toString();
 
-            Utils.databaseReferenceContact().child(id).child("name").setValue(name);
-            Utils.databaseReferenceContact().child(id).child("email").setValue(email);
-            Utils.databaseReferenceContact().child(id).child("phone").setValue(phone);
+            Utils.databaseReference(Const.Contact).child(id).child("name").setValue(name);
+            Utils.databaseReference(Const.Contact).child(id).child("email").setValue(email);
+            Utils.databaseReference(Const.Contact).child(id).child("phone").setValue(phone);
             finish();
         } else {
             Toast.makeText(this, "Chưa nhập đủ thông tin.", Toast.LENGTH_SHORT).show();

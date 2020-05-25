@@ -9,6 +9,7 @@ import android.widget.EditText;
 import androidx.annotation.NonNull;
 
 import com.example.firebase.R;
+import com.example.firebase.utils.Const;
 import com.example.firebase.utils.Utils;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -59,7 +60,7 @@ public class UpdateActivity extends BaseActivity implements View.OnClickListener
 
     private void deleteContact() {
         String key = edtContactId.getText().toString();
-        Utils.databaseReferenceContact().child(key).removeValue();
+        Utils.databaseReference(Const.Contact).child(key).removeValue();
         finish();
     }
 
@@ -68,9 +69,9 @@ public class UpdateActivity extends BaseActivity implements View.OnClickListener
         String phone = edtPhone.getText().toString();
         String name = edtName.getText().toString();
         String email = edtEmail.getText().toString();
-        Utils.databaseReferenceContact().child(key).child("phone").setValue(phone);
-        Utils.databaseReferenceContact().child(key).child("email").setValue(email);
-        Utils.databaseReferenceContact().child(key).child("name").setValue(name);
+        Utils.databaseReference(Const.Contact).child(key).child("name").setValue(name);
+        Utils.databaseReference(Const.Contact).child(key).child("email").setValue(email);
+        Utils.databaseReference(Const.Contact).child(key).child("phone").setValue(phone);
         finish();
     }
 
@@ -81,7 +82,7 @@ public class UpdateActivity extends BaseActivity implements View.OnClickListener
         /* Truy xuất và lắng nghe sự thay đổi dữ liệu
          * chỉ truy xuất node được chọn trên listview databaseReference.child(key)
          * addListenerForSingleValueEvent để lấy dữ liệu đơn*/
-        Utils.databaseReferenceContact().child(key).addListenerForSingleValueEvent(new ValueEventListener() {
+        Utils.databaseReference(Const.Contact).child(key).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 //nó trả về 1 DataSnapShot, mà giá trị đơn nên gọi getValue trả về 1 HashMap
@@ -89,9 +90,9 @@ public class UpdateActivity extends BaseActivity implements View.OnClickListener
                 /* HashMap này sẽ có kích  thước bằng số Node con bên trong node truy vấn
                  * mỗi phần tử có key là name được định nghĩa trong cấu trúc Json của Firebase*/
                 edtContactId.setText(key);
-                edtName.setText(hashMap.get("name").toString());
-                edtEmail.setText(hashMap.get("email").toString());
-                edtPhone.setText(hashMap.get("phone").toString());
+                edtName.setText((CharSequence) hashMap.get("name"));
+                edtEmail.setText((CharSequence) hashMap.get("email"));
+                edtPhone.setText((CharSequence) hashMap.get("phone"));
             }
 
             @Override

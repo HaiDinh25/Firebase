@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 
 import com.example.firebase.R;
 import com.example.firebase.model.UserDataModel;
+import com.example.firebase.utils.Const;
 import com.example.firebase.utils.Utils;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -52,7 +53,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     private void loginEvent() {
         if (checkNull()) {
-            Utils.databaseReferenceUser().addValueEventListener(new ValueEventListener() {
+            Utils.databaseReference(Const.UserData).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     for (DataSnapshot data : dataSnapshot.getChildren()) {
