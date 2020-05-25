@@ -11,20 +11,19 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.firebase.R;
+import com.example.firebase.adapter.ContactAdapter;
+import com.example.firebase.model.Contact;
 import com.example.firebase.utils.Utils;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
     private ListView lvContact;
-    private ArrayAdapter<String> adapter;
+    private ContactAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,21 +34,29 @@ public class MainActivity extends AppCompatActivity {
 
     private void initUI() {
         lvContact = findViewById(R.id.lv_contact);
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
+        adapter = new ContactAdapter(this, R.layout.item_list_contact);
         lvContact.setAdapter(adapter);
         listViewOnClick();
+        adapter.clear();
 
         //Truy xuất và lắng nghe sự thay đổi dữ liệu
         Utils.databaseReference().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                adapter.clear();
                 //Vòng lặp để lấy dữ liệu khi có sự thay đổi trên Firebase
                 for (DataSnapshot data: dataSnapshot.getChildren()) {
-                    //Lấy key và giá trị data
+                    //Convert ra đối tượng Contact
+                    Contact contact = data.getValue(Contact.class);
                     String key = data.getKey();
-                    String value = data.getValue().toString();
-                    adapter.add((key + "\n" + value));
+                    String name = String.valueOf(data.child("name").getValue());
+                    String email = String.valueOf(data.child("email").getValue());
+                    String phone = String.valueOf(data.child("phone").getValue());
+                    Log.d("TAG", "onDataChange: " + name);
+                    contact.setContactId(key);
+                    contact.setContactName(name);
+                    contact.setContactEmail(email);
+                    contact.setContactPhone(phone);
+                    adapter.add(contact);
                 }
             }
 
@@ -62,8 +69,8 @@ public class MainActivity extends AppCompatActivity {
         lvContact.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String data = adapter.getItem(position);
-                String key = data.split("\n")[0];
+                Contact contact = adapter.getItem(position);
+                String key = contact.getContactId();
                 Intent intent = new Intent(MainActivity.this, UpdateActivity.class);
                 intent.putExtra("KEY", key);
                 startActivity(intent);

@@ -10,8 +10,6 @@ import android.widget.Toast;
 
 import com.example.firebase.R;
 import com.example.firebase.utils.Utils;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class AddContactActivity extends AppCompatActivity implements View.OnClickListener {
     private EditText edtContactId;

@@ -83,7 +83,7 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
         final String key = intent.getStringExtra("KEY");
 
         /* Truy xuất và lắng nghe sự thay đổi dữ liệu
-         * chỉ truy xuất node được cọn trên listview databaseReference.child(key)
+         * chỉ truy xuất node được chọn trên listview databaseReference.child(key)
          * addListenerForSingleValueEvent để lấy dữ liệu đơn*/
         Utils.databaseReference().child(key).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -99,8 +99,7 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
+            public void onCancelled(@NonNull DatabaseError databaseError) { }
         });
     }
 }
