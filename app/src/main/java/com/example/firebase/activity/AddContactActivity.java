@@ -13,11 +13,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class AddContactActivity extends AppCompatActivity implements View.OnClickListener {
-    EditText edtContactId;
-    EditText edtName;
-    EditText edtEmail;
-    EditText edtPhone;
-    Button btnAdd;
+    private EditText edtContactId;
+    private EditText edtName;
+    private  EditText edtEmail;
+    private  EditText edtPhone;
+    private  Button btnAdd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +49,7 @@ public class AddContactActivity extends AppCompatActivity implements View.OnClic
             FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
             //Kết nối tới node có tên là contacts
             DatabaseReference databaseReference = firebaseDatabase.getReference("contacts");
-            
+
             String id = edtContactId.getText().toString();
             String name = edtName.getText().toString();
             String email = edtEmail.getText().toString();

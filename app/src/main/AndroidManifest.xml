@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/logo_firebase"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.AddContactActivity"></activity>
+        <activity android:name=".activity.UpdateActivity"></activity>
+        <activity android:name=".activity.AddContactActivity" />
         <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

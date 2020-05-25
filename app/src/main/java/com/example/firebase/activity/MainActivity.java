@@ -5,9 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -20,16 +23,20 @@ import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
     private ListView lvContact;
-    ArrayAdapter<String> adapter;
+    private ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initUI();
+    }
 
+    private void initUI() {
         lvContact = findViewById(R.id.lv_contact);
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
         lvContact.setAdapter(adapter);
+        listViewOnClick();
 
         //Lấy đối tượng FirebaseDatabase
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -51,8 +58,19 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) { }
+        });
+    }
 
+    private void listViewOnClick() {
+        lvContact.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String data = adapter.getItem(position);
+                String key = data.split("\n")[0];
+                Intent intent = new Intent(MainActivity.this, UpdateActivity.class);
+                intent.putExtra("KEY", key);
+                startActivity(intent);
             }
         });
     }
