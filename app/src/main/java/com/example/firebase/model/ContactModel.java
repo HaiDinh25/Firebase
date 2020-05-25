@@ -1,6 +1,6 @@
 package com.example.firebase.model;
 
-public class Contact {
+public class ContactModel {
     private String contactId;
     private String contactName;
     private String contactEmail;

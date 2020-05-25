@@ -1,7 +1,5 @@
 package com.example.firebase.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,7 +9,7 @@ import android.widget.Toast;
 import com.example.firebase.R;
 import com.example.firebase.utils.Utils;
 
-public class AddContactActivity extends AppCompatActivity implements View.OnClickListener {
+public class AddContactActivity extends BaseActivity implements View.OnClickListener {
     private EditText edtContactId;
     private EditText edtName;
     private  EditText edtEmail;
@@ -49,9 +47,9 @@ public class AddContactActivity extends AppCompatActivity implements View.OnClic
             String email = edtEmail.getText().toString();
             String phone = edtPhone.getText().toString();
 
-            Utils.databaseReference().child(id).child("name").setValue(name);
-            Utils.databaseReference().child(id).child("email").setValue(email);
-            Utils.databaseReference().child(id).child("phone").setValue(phone);
+            Utils.databaseReferenceContact().child(id).child("name").setValue(name);
+            Utils.databaseReferenceContact().child(id).child("email").setValue(email);
+            Utils.databaseReferenceContact().child(id).child("phone").setValue(phone);
             finish();
         } else {
             Toast.makeText(this, "Chưa nhập đủ thông tin.", Toast.LENGTH_SHORT).show();

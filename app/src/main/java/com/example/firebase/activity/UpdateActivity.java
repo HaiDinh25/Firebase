@@ -2,25 +2,21 @@ package com.example.firebase.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.firebase.R;
 import com.example.firebase.utils.Utils;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 
-public class UpdateActivity extends AppCompatActivity implements View.OnClickListener {
+public class UpdateActivity extends BaseActivity implements View.OnClickListener {
     private EditText edtContactId;
     private EditText edtName;
     private EditText edtEmail;
@@ -63,7 +59,7 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
 
     private void deleteContact() {
         String key = edtContactId.getText().toString();
-        Utils.databaseReference().child(key).removeValue();
+        Utils.databaseReferenceContact().child(key).removeValue();
         finish();
     }
 
@@ -72,9 +68,9 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
         String phone = edtPhone.getText().toString();
         String name = edtName.getText().toString();
         String email = edtEmail.getText().toString();
-        Utils.databaseReference().child(key).child("phone").setValue(phone);
-        Utils.databaseReference().child(key).child("email").setValue(email);
-        Utils.databaseReference().child(key).child("name").setValue(name);
+        Utils.databaseReferenceContact().child(key).child("phone").setValue(phone);
+        Utils.databaseReferenceContact().child(key).child("email").setValue(email);
+        Utils.databaseReferenceContact().child(key).child("name").setValue(name);
         finish();
     }
 
@@ -85,7 +81,7 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
         /* Truy xuất và lắng nghe sự thay đổi dữ liệu
          * chỉ truy xuất node được chọn trên listview databaseReference.child(key)
          * addListenerForSingleValueEvent để lấy dữ liệu đơn*/
-        Utils.databaseReference().child(key).addListenerForSingleValueEvent(new ValueEventListener() {
+        Utils.databaseReferenceContact().child(key).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 //nó trả về 1 DataSnapShot, mà giá trị đơn nên gọi getValue trả về 1 HashMap

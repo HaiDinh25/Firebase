@@ -1,11 +1,7 @@
 package com.example.firebase.activity;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,13 +11,13 @@ import android.widget.ListView;
 
 import com.example.firebase.R;
 import com.example.firebase.adapter.ContactAdapter;
-import com.example.firebase.model.Contact;
+import com.example.firebase.model.ContactModel;
 import com.example.firebase.utils.Utils;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
     private ListView lvContact;
     private ContactAdapter adapter;
 
@@ -37,26 +33,23 @@ public class MainActivity extends AppCompatActivity {
         adapter = new ContactAdapter(this, R.layout.item_list_contact);
         lvContact.setAdapter(adapter);
         listViewOnClick();
-        adapter.clear();
 
         //Truy xuất và lắng nghe sự thay đổi dữ liệu
-        Utils.databaseReference().addValueEventListener(new ValueEventListener() {
+        Utils.databaseReferenceContact().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                adapter.clear();
                 //Vòng lặp để lấy dữ liệu khi có sự thay đổi trên Firebase
                 for (DataSnapshot data: dataSnapshot.getChildren()) {
-                    //Convert ra đối tượng Contact
-                    Contact contact = data.getValue(Contact.class);
-                    String key = data.getKey();
-                    String name = String.valueOf(data.child("name").getValue());
-                    String email = String.valueOf(data.child("email").getValue());
-                    String phone = String.valueOf(data.child("phone").getValue());
-                    Log.d("TAG", "onDataChange: " + name);
-                    contact.setContactId(key);
-                    contact.setContactName(name);
-                    contact.setContactEmail(email);
-                    contact.setContactPhone(phone);
-                    adapter.add(contact);
+                    //Convert ra đối tượng ContactModel
+                    ContactModel contact = data.getValue(ContactModel.class);
+                    if (contact != null) {
+                        contact.setContactId(data.getKey());
+                        contact.setContactName(data.child("name").getValue().toString());
+                        contact.setContactEmail(data.child("email").getValue().toString());
+                        contact.setContactPhone(data.child("phone").getValue().toString());
+                        adapter.add(contact);
+                    }
                 }
             }
 
@@ -69,11 +62,9 @@ public class MainActivity extends AppCompatActivity {
         lvContact.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Contact contact = adapter.getItem(position);
+                ContactModel contact = adapter.getItem(position);
                 String key = contact.getContactId();
-                Intent intent = new Intent(MainActivity.this, UpdateActivity.class);
-                intent.putExtra("KEY", key);
-                startActivity(intent);
+                gotoActivity(UpdateActivity.class, "KEY", key);
             }
         });
     }
@@ -88,8 +79,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.add_contact) {
-            Intent intent = new Intent(this, AddContactActivity.class);
-            startActivity(intent);
+            gotoActivity(AddContactActivity.class);
         }
         return super.onOptionsItemSelected(item);
     }
