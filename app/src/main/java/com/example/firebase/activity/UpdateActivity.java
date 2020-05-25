@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.firebase.R;
+import com.example.firebase.utils.Utils;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -62,10 +63,7 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
 
     private void deleteContact() {
         String key = edtContactId.getText().toString();
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        //Kết nối tới node có tên là contacts
-        DatabaseReference myRef = database.getReference("contacts");
-        myRef.child(key).removeValue();
+        Utils.databaseReference().child(key).removeValue();
         finish();
     }
 
@@ -74,12 +72,9 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
         String phone = edtPhone.getText().toString();
         String name = edtName.getText().toString();
         String email = edtEmail.getText().toString();
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        //Kết nối tới node có tên là contacts
-        DatabaseReference myRef = database.getReference("contacts");
-        myRef.child(key).child("phone").setValue(phone);
-        myRef.child(key).child("email").setValue(email);
-        myRef.child(key).child("name").setValue(name);
+        Utils.databaseReference().child(key).child("phone").setValue(phone);
+        Utils.databaseReference().child(key).child("email").setValue(email);
+        Utils.databaseReference().child(key).child("name").setValue(name);
         finish();
     }
 
@@ -87,15 +82,10 @@ public class UpdateActivity extends AppCompatActivity implements View.OnClickLis
         Intent intent = getIntent();
         final String key = intent.getStringExtra("KEY");
 
-        //Lấy đối tượng FirebaseDatabase
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        //Kết nối tới node có tên là contacts
-        DatabaseReference databaseReference = firebaseDatabase.getReference("contacts");
-
         /* Truy xuất và lắng nghe sự thay đổi dữ liệu
          * chỉ truy xuất node được cọn trên listview databaseReference.child(key)
          * addListenerForSingleValueEvent để lấy dữ liệu đơn*/
-        databaseReference.child(key).addListenerForSingleValueEvent(new ValueEventListener() {
+        Utils.databaseReference().child(key).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 //nó trả về 1 DataSnapShot, mà giá trị đơn nên gọi getValue trả về 1 HashMap

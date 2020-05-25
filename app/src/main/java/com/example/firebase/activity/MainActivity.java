@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.firebase.R;
+import com.example.firebase.utils.Utils;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -38,13 +39,8 @@ public class MainActivity extends AppCompatActivity {
         lvContact.setAdapter(adapter);
         listViewOnClick();
 
-        //Lấy đối tượng FirebaseDatabase
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        //Kết nối tới node có tên là contacts
-        DatabaseReference databaseReference = firebaseDatabase.getReference("contacts");
-
         //Truy xuất và lắng nghe sự thay đổi dữ liệu
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        Utils.databaseReference().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 adapter.clear();

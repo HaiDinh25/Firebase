@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.firebase.R;
+import com.example.firebase.utils.Utils;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -45,19 +46,14 @@ public class AddContactActivity extends AppCompatActivity implements View.OnClic
 
     private void addContacts () {
         if (checkNull()) {
-            //Lấy đối tượng FirebaseDatabase
-            FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-            //Kết nối tới node có tên là contacts
-            DatabaseReference databaseReference = firebaseDatabase.getReference("contacts");
-
             String id = edtContactId.getText().toString();
             String name = edtName.getText().toString();
             String email = edtEmail.getText().toString();
             String phone = edtPhone.getText().toString();
 
-            databaseReference.child(id).child("name").setValue(name);
-            databaseReference.child(id).child("email").setValue(email);
-            databaseReference.child(id).child("phone").setValue(phone);
+            Utils.databaseReference().child(id).child("name").setValue(name);
+            Utils.databaseReference().child(id).child("email").setValue(email);
+            Utils.databaseReference().child(id).child("phone").setValue(phone);
             finish();
         } else {
             Toast.makeText(this, "Chưa nhập đủ thông tin.", Toast.LENGTH_SHORT).show();
