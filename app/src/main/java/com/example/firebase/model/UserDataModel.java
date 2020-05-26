@@ -1,26 +1,10 @@
 package com.example.firebase.model;
 
 public class UserDataModel {
-    private String data;
-    private String role;
     private String user;
+    private String email;
     private String pass;
-
-    public String getData() {
-        return data;
-    }
-
-    public void setData(String data) {
-        this.data = data;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
+    private String role;
 
     public String getUser() {
         return user;
@@ -30,11 +14,27 @@ public class UserDataModel {
         this.user = user;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getPass() {
         return pass;
     }
 
     public void setPass(String pass) {
         this.pass = pass;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

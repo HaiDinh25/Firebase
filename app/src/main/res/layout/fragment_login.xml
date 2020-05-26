@@ -51,16 +51,33 @@
                 android:hint="Input password"
                 android:background="@drawable/bg_edt"/>
 
-            <Button
-                android:id="@+id/btn_login"
+            <LinearLayout
+                android:layout_marginTop="@dimen/dimen_20"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/dimen_10"
-                android:layout_marginTop="@dimen/dimen_20"
-                android:layout_marginRight="@dimen/dimen_50"
-                android:layout_marginLeft="@dimen/dimen_50"
-                android:background="@drawable/bg_button"
-                android:text="Login"/>
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_login"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="@dimen/dimen_10"
+                    android:background="@drawable/bg_button"
+                    android:text="Login"/>
+
+                <Button
+                    android:id="@+id/btn_register"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="@dimen/dimen_15"
+                    android:padding="@dimen/dimen_10"
+                    android:background="@drawable/bg_button"
+                    android:text="Register"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 
