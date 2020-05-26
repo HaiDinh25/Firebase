@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import com.example.firebase.R;
 import com.example.firebase.activity.BaseActivity;
@@ -25,6 +26,7 @@ import com.google.firebase.database.ValueEventListener;
  * A simple {@link Fragment} subclass.
  */
 public class ContactFragment extends BaseFragment {
+    private ProgressBar progressBar;
     private ListView lvContact;
     private ContactAdapter adapter;
 
@@ -43,7 +45,9 @@ public class ContactFragment extends BaseFragment {
     }
 
     private void initUI(View view) {
+        progressBar = view.findViewById(R.id.progressBar);
         lvContact = view.findViewById(R.id.lv_contact);
+
         adapter = new ContactAdapter(getActivity(), R.layout.item_list_contact);
         lvContact.setAdapter(adapter);
         listViewOnClick();
@@ -63,6 +67,7 @@ public class ContactFragment extends BaseFragment {
                         contact.setName((String) data.child("name").getValue());
                         contact.setPhone((String) data.child("phone").getValue());
                         adapter.add(contact);
+                        progressBar.setVisibility(View.GONE);
                     }
                 }
             }

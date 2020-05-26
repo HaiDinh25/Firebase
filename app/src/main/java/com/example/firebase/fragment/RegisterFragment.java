@@ -22,7 +22,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RegisterFragment extends Fragment implements View.OnClickListener {
+public class RegisterFragment extends BaseFragment implements View.OnClickListener {
     private EditText edtUser;
     private EditText edtEmail;
     private EditText edtPass;
@@ -75,6 +75,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
             if (checkPass()) {
                 progressBar.setVisibility(View.VISIBLE);
                 btnRegister.setVisibility(View.GONE);
+                //Thêm mới collection (UserData) vào fireBaseStore
                 firebaseFirestore.collection("user")
                         .add(userDataModel)
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
