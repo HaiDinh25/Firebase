@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import com.example.firebase.R;
 import com.example.firebase.fragment.AddContactFragment;
 import com.example.firebase.fragment.ContactFragment;
-import com.example.firebase.utils.SharePref;
 
 public class MainActivity extends BaseActivity {
 
@@ -19,8 +18,6 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         gotoFragment(new ContactFragment(), R.id.container);
-
-        Log.d("TAG", "initUI: " + SharePref.getUserRole(this));
     }
 
     @Override
