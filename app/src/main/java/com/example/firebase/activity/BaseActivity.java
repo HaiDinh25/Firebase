@@ -1,5 +1,6 @@
 package com.example.firebase.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+@SuppressLint("Registered")
 public class BaseActivity extends AppCompatActivity {
 
     public void gotoActivity(Class t) {
@@ -21,10 +23,12 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void gotoFragment(Fragment fragment, int id) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(id, fragment, fragment.getClass().getSimpleName());
-        transaction.addToBackStack(null);
-        transaction.commit();
+        if (fragment != null) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.replace(id, fragment, fragment.getClass().getSimpleName());
+            transaction.addToBackStack(null);
+            transaction.commit();
+        }
     }
 }

@@ -18,6 +18,7 @@ import com.example.firebase.activity.BaseActivity;
 import com.example.firebase.activity.MainActivity;
 import com.example.firebase.model.UserDataModel;
 import com.example.firebase.utils.Const;
+import com.example.firebase.utils.SharePref;
 import com.example.firebase.utils.Utils;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -90,6 +91,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
                         if (account != null) {
                             if (user.equals(account.getUser()) && pass.equals(account.getPass())) {
                                 progressBar.setVisibility(View.GONE);
+                                SharePref.setUserRole(getContext(), account.getRole());
                                 ((BaseActivity) getActivity()).gotoActivity(MainActivity.class);
                                 getActivity().finish();
                             } else {
