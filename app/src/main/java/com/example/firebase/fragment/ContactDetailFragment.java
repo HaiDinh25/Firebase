@@ -1,14 +1,18 @@
-package com.example.firebase.activity;
+package com.example.firebase.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-import androidx.annotation.NonNull;
-
 import com.example.firebase.R;
+import com.example.firebase.activity.BaseActivity;
 import com.example.firebase.utils.Const;
 import com.example.firebase.utils.Utils;
 import com.google.firebase.database.DataSnapshot;
@@ -17,31 +21,40 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 
-public class UpdateActivity extends BaseActivity implements View.OnClickListener {
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class ContactDetailFragment extends BaseFragment implements View.OnClickListener {
     private EditText edtContactId;
     private EditText edtName;
     private EditText edtEmail;
     private EditText edtPhone;
     private Button btnUpdate;
     private Button btnDelete;
+    private String key;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_update);
-        initUI();
-
-        btnUpdate.setOnClickListener(this);
-        btnDelete.setOnClickListener(this);
+    public ContactDetailFragment(String key) {
+        this.key = key;
     }
 
-    private void initUI() {
-        edtContactId = findViewById(R.id.edt_contactId);
-        edtName = findViewById(R.id.edt_name);
-        edtEmail = findViewById(R.id.edt_email);
-        edtPhone = findViewById(R.id.edt_phoneNumber);
-        btnUpdate = findViewById(R.id.btn_update);
-        btnDelete = findViewById(R.id.btn_delete);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_contact_detail, container, false);
+        initUI(view);
+        btnUpdate.setOnClickListener(this);
+        btnDelete.setOnClickListener(this);
+        return view;
+    }
+
+    private void initUI(View view) {
+        edtContactId = view.findViewById(R.id.edt_contactId);
+        edtName = view.findViewById(R.id.edt_name);
+        edtEmail = view.findViewById(R.id.edt_email);
+        edtPhone = view.findViewById(R.id.edt_phoneNumber);
+        btnUpdate = view.findViewById(R.id.btn_update);
+        btnDelete = view.findViewById(R.id.btn_delete);
 
         getContactDetail();
     }
@@ -61,7 +74,7 @@ public class UpdateActivity extends BaseActivity implements View.OnClickListener
     private void deleteContact() {
         String key = edtContactId.getText().toString();
         Utils.databaseReference(Const.Contact).child(key).removeValue();
-        finish();
+        ((BaseActivity) getActivity()).gotoFragment(new ContactFragment(), R.id.container);
     }
 
     private void updateContract() {
@@ -72,13 +85,10 @@ public class UpdateActivity extends BaseActivity implements View.OnClickListener
         Utils.databaseReference(Const.Contact).child(key).child("name").setValue(name);
         Utils.databaseReference(Const.Contact).child(key).child("email").setValue(email);
         Utils.databaseReference(Const.Contact).child(key).child("phone").setValue(phone);
-        finish();
+        ((BaseActivity) getActivity()).gotoFragment(new ContactFragment(), R.id.container);
     }
 
     private void getContactDetail() {
-        Intent intent = getIntent();
-        final String key = intent.getStringExtra("KEY");
-
         /* Truy xuất và lắng nghe sự thay đổi dữ liệu
          * chỉ truy xuất node được chọn trên listview databaseReference.child(key)
          * addListenerForSingleValueEvent để lấy dữ liệu đơn*/

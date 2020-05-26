@@ -5,9 +5,10 @@
     android:layout_height="match_parent"
     tools:context=".activity.MainActivity">
 
-    <FrameLayout
-        android:id="@+id/container"
+    <ListView
+        android:id="@+id/lv_contact"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dimen_5" />
 
 </LinearLayout>
