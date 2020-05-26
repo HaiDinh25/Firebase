@@ -117,15 +117,11 @@ public class RegisterFragment extends BaseFragment implements View.OnClickListen
     }
 
     private boolean checkPass() {
-        if (edtRePass.getText().toString().equals(edtPass.getText().toString()))
-            return true;
-        return false;
+        return (edtRePass.getText().toString().equals(edtPass.getText().toString()));
     }
 
     private boolean checkNull() {
-        if (!edtEmail.getText().toString().isEmpty() && !edtUser.getText().toString().isEmpty()
-                && !edtPass.getText().toString().isEmpty() && !edtRePass.getText().toString().isEmpty())
-            return true;
-        return false;
+        return  (!edtEmail.getText().toString().isEmpty() && !edtUser.getText().toString().isEmpty()
+                && !edtPass.getText().toString().isEmpty() && !edtRePass.getText().toString().isEmpty());
     }
 }

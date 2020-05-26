@@ -1,6 +1,7 @@
 package com.example.firebase.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -83,9 +84,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
     }
 
     private boolean checkNull() {
-        if (edtUser.getText().toString().isEmpty() || edtPass.getText().toString().isEmpty())
-            return false;
-        return true;
+        return (!edtUser.getText().toString().isEmpty() && !edtPass.getText().toString().isEmpty());
     }
 
     private void loginEvent() {

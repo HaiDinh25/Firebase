@@ -93,4 +93,5 @@ public class ContactFragment extends BaseFragment {
         super.onDestroy();
         getActivity().finish();
     }
+
 }

@@ -71,6 +71,11 @@ public class ContactDetailFragment extends BaseFragment implements View.OnClickL
         }
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
     private void deleteContact() {
         String key = edtContactId.getText().toString();
         Utils.databaseReference(Const.Contact).child(key).removeValue();

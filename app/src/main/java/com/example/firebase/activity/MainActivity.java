@@ -1,7 +1,6 @@
 package com.example.firebase.activity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -11,7 +10,6 @@ import com.example.firebase.fragment.AddContactFragment;
 import com.example.firebase.fragment.ContactFragment;
 
 public class MainActivity extends BaseActivity {
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
